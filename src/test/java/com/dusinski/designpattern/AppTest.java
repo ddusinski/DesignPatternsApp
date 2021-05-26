@@ -6,7 +6,10 @@ import com.dusinski.designpattern.decorator.PineTreeImpl;
 import com.dusinski.designpattern.decorator.Tinsel;
 import com.dusinski.designpattern.facade.CarEngineFacade;
 import com.dusinski.designpattern.proxy.ProxyImage;
+import com.dusinski.designpattern.strategy.*;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,6 +44,22 @@ public class AppTest {
 
         ChristmasTree tree2 = new Tinsel(new BubbleLights(new PineTreeImpl()));
         assertEquals("Pine tree with Bubble Lights with Tinsel", tree2.decorate());
+    }
+
+    // strategy pattern - allows to change behaviour of the algorithm on run time. MathOperation interface allows us to change currently used class
+    //  (Add, Divide, Multiply, Subtract) and use their calculate strategy method to perform math operation
+    @Test
+    public void testStrategyPattern(){
+        BigDecimal a = new BigDecimal(12);
+        BigDecimal b = new BigDecimal(36);
+        MathOperation mathOperation = new Add();
+        assertEquals("Add 48",mathOperation.getClass().getSimpleName() + " " + mathOperation.calculateStrategy(a, b));
+        mathOperation = new Subtract();
+        assertEquals("Subtract -24",mathOperation.getClass().getSimpleName() + " " +mathOperation.calculateStrategy(a, b));
+        mathOperation = new Divide();
+        assertEquals("Divide 0.33333333",mathOperation.getClass().getSimpleName() + " " +mathOperation.calculateStrategy(a, b));
+        mathOperation = new Multiply();
+        assertEquals("Multiply 432",mathOperation.getClass().getSimpleName() + " " +mathOperation.calculateStrategy(a, b));
     }
 
 }
