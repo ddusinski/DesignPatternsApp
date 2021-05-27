@@ -5,6 +5,9 @@ import com.dusinski.designpattern.decorator.ChristmasTree;
 import com.dusinski.designpattern.decorator.PineTreeImpl;
 import com.dusinski.designpattern.decorator.Tinsel;
 import com.dusinski.designpattern.facade.CarEngineFacade;
+import com.dusinski.designpattern.observer.NewsChannel;
+import com.dusinski.designpattern.observer.ObservableAgency;
+import com.dusinski.designpattern.observer.ObserverChannel;
 import com.dusinski.designpattern.proxy.ProxyImage;
 import com.dusinski.designpattern.strategy.*;
 import org.junit.Test;
@@ -60,6 +63,36 @@ public class AppTest {
         assertEquals("Divide 0.33333333",mathOperation.getClass().getSimpleName() + " " +mathOperation.calculateStrategy(a, b));
         mathOperation = new Multiply();
         assertEquals("Multiply 432",mathOperation.getClass().getSimpleName() + " " +mathOperation.calculateStrategy(a, b));
+    }
+
+    //  Observable Agency class has a list of ObserverChannels interfaces which updates field of each NewsChannel which implements this interface.
+    //  Inside ObserverChannel interface is included also package private  InternalObserverChannel Interface - it has only one method updateNews() which is only
+    //  accessible from this package. Only ObservableAgency is allowed to update the news
+    @Test
+    public void testObserverChannel(){
+        ObserverChannel cnn = new NewsChannel("CNN");
+        ObserverChannel bbc = new NewsChannel("BBC");
+        ObserverChannel tvp = new NewsChannel("TVP");
+
+        ObservableAgency observableAgency = new ObservableAgency();
+
+        observableAgency.addObserver(cnn);
+        observableAgency.addObserver(bbc);
+        observableAgency.addObserver(tvp);
+
+        observableAgency.publicizeNews("The COVID pandemic is over");
+
+        assertEquals("news of CNN are: The COVID pandemic is over","news of "+cnn.getChannelName()+ " are: "+cnn.getNews());
+        assertEquals("news of BBC are: The COVID pandemic is over","news of "+bbc.getChannelName()+ " are: "+bbc.getNews());
+        assertEquals("news of TVP are: The COVID pandemic is over","news of "+tvp.getChannelName()+ " are: "+tvp.getNews());
+
+        observableAgency.removeObserver(tvp);
+        observableAgency.publicizeNews("UK has left EU");
+
+        assertEquals("news of CNN are: UK has left EU","news of "+cnn.getChannelName()+ " are: "+cnn.getNews());
+        assertEquals("news of BBC are: UK has left EU","news of "+bbc.getChannelName()+ " are: "+bbc.getNews());
+        assertEquals("news of TVP are: The COVID pandemic is over","news of "+tvp.getChannelName()+ " are: "+tvp.getNews());
+
     }
 
 }
