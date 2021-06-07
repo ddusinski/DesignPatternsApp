@@ -11,6 +11,7 @@ import com.dusinski.designpattern.observer.NewsChannel;
 import com.dusinski.designpattern.observer.ObservableAgency;
 import com.dusinski.designpattern.observer.ObserverChannel;
 import com.dusinski.designpattern.proxy.ProxyImage;
+import com.dusinski.designpattern.singletone.SingletonObject;
 import com.dusinski.designpattern.strategy.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -108,6 +109,17 @@ public class AppTest {
         Assert.assertEquals("I'm a bike",tempBike.getName());
         Vehicle tempBus = VehicleFactory.createVehicle(6);
         Assert.assertEquals("I'm a bus",tempBus.getName());
+    }
+
+//The class is singleton when there is only one instance created in Java VM. The class has private static field of this class which is instantiated
+//    during start of the program. The class has private constructor which cannot be used by the client. Client can access the instance only
+//    using getInstance() method
+    @Test
+    public void testSingletonPattern(){
+        SingletonObject sn1 = SingletonObject.getInstance();
+        Assert.assertEquals(1,sn1.instanceCount);
+        SingletonObject sn2 = SingletonObject.getInstance();
+        Assert.assertEquals(1,sn2.instanceCount);
     }
 
 }
