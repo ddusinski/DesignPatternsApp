@@ -1,5 +1,6 @@
 package com.dusinski.designpattern;
 
+import com.dusinski.designpattern.builder.BankAccount;
 import com.dusinski.designpattern.decorator.BubbleLights;
 import com.dusinski.designpattern.decorator.ChristmasTree;
 import com.dusinski.designpattern.decorator.PineTreeImpl;
@@ -120,6 +121,21 @@ public class AppTest {
         Assert.assertEquals(1,sn1.instanceCount);
         SingletonObject sn2 = SingletonObject.getInstance();
         Assert.assertEquals(1,sn2.instanceCount);
+    }
+
+
+//    When one class BankAccount is complicated to create there is inner class BankAccountBuilder available with methods used for creation of outer class
+    @Test
+    public void testBuilderPattern(){
+        BankAccount account1 = new BankAccount.BankAccountBuilder(12345).build();
+        Assert.assertEquals("BankAccount{accountNumber=12345, branch='null', balance=0, owner='null'}",account1.toString());
+        BankAccount account2 = new BankAccount
+                .BankAccountBuilder(54321)
+                .atBranch("Warsaw")
+                .withOwner("Kowalski")
+                .withBalance(120)
+                .build();
+        Assert.assertEquals("BankAccount{accountNumber=54321, branch='Warsaw', balance=120, owner='Kowalski'}",account2.toString());
     }
 
 }

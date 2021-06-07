@@ -1,8 +1,6 @@
 package com.dusinski.designpattern;
 
-import com.dusinski.designpattern.factory.Vehicle;
-import com.dusinski.designpattern.factory.VehicleFactory;
-import com.dusinski.designpattern.singletone.SingletonObject;
+import com.dusinski.designpattern.builder.BankAccount;
 
 public class App {
     public static void main(String[] args) {
@@ -15,13 +13,18 @@ public class App {
 //        System.out.println(b);
 //        System.out.println(a.add(b).doubleValue());
 
-        SingletonObject sn1 = SingletonObject.getInstance();
-        System.out.println(sn1.instanceCount);
 
-        SingletonObject sn2 = SingletonObject.getInstance();
-        System.out.println(sn2.instanceCount);
+        BankAccount account1 = new BankAccount.BankAccountBuilder(12345).build();
+        System.out.println(account1);
 
 
+        BankAccount account2 = new BankAccount
+                .BankAccountBuilder(54321)
+                .atBranch("Warsaw")
+                .withOwner("Kowalski")
+                .withBalance(120)
+                .build();
+        System.out.println(account2);
 
 
     }
