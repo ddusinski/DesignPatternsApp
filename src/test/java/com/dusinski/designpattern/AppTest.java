@@ -5,11 +5,14 @@ import com.dusinski.designpattern.decorator.ChristmasTree;
 import com.dusinski.designpattern.decorator.PineTreeImpl;
 import com.dusinski.designpattern.decorator.Tinsel;
 import com.dusinski.designpattern.facade.CarEngineFacade;
+import com.dusinski.designpattern.factory.Vehicle;
+import com.dusinski.designpattern.factory.VehicleFactory;
 import com.dusinski.designpattern.observer.NewsChannel;
 import com.dusinski.designpattern.observer.ObservableAgency;
 import com.dusinski.designpattern.observer.ObserverChannel;
 import com.dusinski.designpattern.proxy.ProxyImage;
 import com.dusinski.designpattern.strategy.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -92,7 +95,19 @@ public class AppTest {
         assertEquals("news of CNN are: UK has left EU","news of "+cnn.getChannelName()+ " are: "+cnn.getNews());
         assertEquals("news of BBC are: UK has left EU","news of "+bbc.getChannelName()+ " are: "+bbc.getNews());
         assertEquals("news of TVP are: The COVID pandemic is over","news of "+tvp.getChannelName()+ " are: "+tvp.getNews());
+    }
 
+//    there is Vehicle interface which is implemented by three classes Bike, Bus, Car. This interface is used by VehicleFactory class to create new object.
+//    The client is providing number of wheels which new object should have and VehicleFactory is creating this object on its own. The client does not need to
+//    worry about it
+    @Test
+    public void testFactoryPattern(){
+        Vehicle tempCar = VehicleFactory.createVehicle(4);
+        Assert.assertEquals("I'm a car",tempCar.getName());
+        Vehicle tempBike = VehicleFactory.createVehicle(2);
+        Assert.assertEquals("I'm a bike",tempBike.getName());
+        Vehicle tempBus = VehicleFactory.createVehicle(6);
+        Assert.assertEquals("I'm a bus",tempBus.getName());
     }
 
 }

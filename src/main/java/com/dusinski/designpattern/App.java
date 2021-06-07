@@ -1,12 +1,7 @@
 package com.dusinski.designpattern;
 
-import com.dusinski.designpattern.observer.NewsChannel;
-import com.dusinski.designpattern.observer.ObservableAgency;
-import com.dusinski.designpattern.observer.ObserverChannel;
-
-
-import java.math.BigDecimal;
-
+import com.dusinski.designpattern.factory.Vehicle;
+import com.dusinski.designpattern.factory.VehicleFactory;
 
 public class App {
     public static void main(String[] args) {
@@ -20,28 +15,14 @@ public class App {
 //        System.out.println(a.add(b).doubleValue());
 
 
-        ObserverChannel cnn = new NewsChannel("CNN");
-        ObserverChannel bbc = new NewsChannel("BBC");
-        ObserverChannel tvp = new NewsChannel("TVP");
+        Vehicle tempCar = VehicleFactory.createVehicle(4);
+        System.out.println(tempCar.getName());
+        Vehicle tempBike = VehicleFactory.createVehicle(2);
+        System.out.println(tempBike.getName());
+        Vehicle tempBus = VehicleFactory.createVehicle(6);
+        System.out.println(tempBus.getName());
 
-        ObservableAgency observableAgency = new ObservableAgency();
 
-        observableAgency.addObserver(cnn);
-        observableAgency.addObserver(bbc);
-        observableAgency.addObserver(tvp);
-
-        observableAgency.publicizeNews("The COVID pandemic is over");
-
-        System.out.println("news of "+cnn.getChannelName()+ " are: "+cnn.getNews());
-        System.out.println("news of "+bbc.getChannelName()+ " are: "+bbc.getNews());
-        System.out.println("news of "+tvp.getChannelName()+ " are: "+tvp.getNews());
-
-        observableAgency.removeObserver(tvp);
-        observableAgency.publicizeNews("UK has left EU");
-
-        System.out.println("news of "+cnn.getChannelName()+ " are: "+cnn.getNews());
-        System.out.println("news of "+bbc.getChannelName()+ " are: "+bbc.getNews());
-        System.out.println("news of "+tvp.getChannelName()+ " are: "+tvp.getNews());
 
 
     }
